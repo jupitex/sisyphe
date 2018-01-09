@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/istex/sisyphe.svg?branch=master)](https://travis-ci.org/istex/sisyphe)
-[![bitHound Overall Score](https://www.bithound.io/github/istex/sisyphe/badges/score.svg)](https://www.bithound.io/github/istex/sisyphe)
+[![Build Status](https://travis-ci.org/jupitex/sisyphe.svg?branch=master)](https://travis-ci.org/jupitex/sisyphe)
+[![bitHound Overall Score](https://www.bithound.io/github/jupitex/sisyphe/badges/score.svg)](https://www.bithound.io/github/jupitex/sisyphe)
 
 ![sisyphe](./logo-sisyphe.jpg)
 
@@ -60,7 +60,7 @@ Just take a coffee and wait , it will prevent you when it's done :)
 
 The results of sisyphe are present @ `sisyphe/out/{timestamp}-corpusname/` (errors,info,duration..)
 
-For a control panel & full binded app, go to [Sisyphe-monitor](https://github.com/istex/sisyphe-monitor)
+For a control panel & full binded app, go to [Sisyphe-monitor](https://github.com/jupitex/sisyphe-monitor)
 sisyphe has a server that allows to control it and to obtain more information on its execution.
 Simply run the server with `npm run server` to access these features
 
@@ -71,15 +71,15 @@ Simply run the server with `npm run server` to access these features
 There is a list of default modules (focused on xml & pdf).
 
 Those URL NEED to be updated when merge branch will be ok.
-- [FILETYPE](https://github.com/istex/sisyphe/tree/master/src/worker/filetype) Will detect mimetype,extension, corrupted files..
-- [PDF](https://github.com/istex/sisyphe/tree/master/src/worker/pdf) Will get info from PDF (version, author, meta...)
-- [XML](https://github.com/istex/sisyphe/tree/master/src/worker/xml) Will check if it's wellformed, valid-dtd's, get elements from balises ...
-- [XPATH](https://github.com/istex/sisyphe/tree/master/src/worker/xpath)  Will generate a complete list of xpaths from submitted folder
-- [OUT](https://github.com/istex/sisyphe/tree/master/src/worker/out) Will export data to json file & ElasticSearch database
-- [NB](https://github.com/istex/sisyphe/tree/master/src/worker/nb) Try to assing some categories to an XML document by using its abstract
-- [MULTICAT](https://github.com/istex/sisyphe/tree/master/src/worker/multicat) Try to assing some categories to an XML document by using its identifiers
-- [TEEFT](https://github.com/istex/sisyphe/tree/master/src/worker/teeft) Try to extract keywords of a fulltext
-- [SKEEFT](https://github.com/istex/sisyphe/tree/master/src/worker/skeeft) Try to extract keywords of a structured fulltext by using teeft algorithm and text structuration
+- [FILETYPE](https://github.com/jupitex/sisyphe/tree/master/src/worker/filetype) Will detect mimetype,extension, corrupted files..
+- [PDF](https://github.com/jupitex/sisyphe/tree/master/src/worker/pdf) Will get info from PDF (version, author, meta...)
+- [XML](https://github.com/jupitex/sisyphe/tree/master/src/worker/xml) Will check if it's wellformed, valid-dtd's, get elements from balises ...
+- [XPATH](https://github.com/jupitex/sisyphe/tree/master/src/worker/xpath)  Will generate a complete list of xpaths from submitted folder
+- [OUT](https://github.com/jupitex/sisyphe/tree/master/src/worker/out) Will export data to json file & ElasticSearch database
+- [NB](https://github.com/jupitex/sisyphe/tree/master/src/worker/nb) Try to assing some categories to an XML document by using its abstract
+- [MULTICAT](https://github.com/jupitex/sisyphe/tree/master/src/worker/multicat) Try to assing some categories to an XML document by using its identifiers
+- [TEEFT](https://github.com/jupitex/sisyphe/tree/master/src/worker/teeft) Try to extract keywords of a fulltext
+- [SKEEFT](https://github.com/jupitex/sisyphe/tree/master/src/worker/skeeft) Try to extract keywords of a structured fulltext by using teeft algorithm and text structuration
 
 
 ### Developpement on worker
