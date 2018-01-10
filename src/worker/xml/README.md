@@ -1,18 +1,12 @@
-[![Build Status](https://travis-ci.org/istex/sisyphe-xml.svg?branch=master)](https://travis-ci.org/istex/sisyphe-xml)
-[![bitHound Overall Score](https://www.bithound.io/github/istex/sisyphe-xml/badges/score.svg)](https://www.bithound.io/github/istex/sisyphe-xml)
-
 Sisyphe-xml
 =====
 Module which generate XML's information for Sisyphe
 
-## Requirements:
-Tested with Redis@3.2.6 & Node 6.9 & XmlStarlet@1.6.1(libxml2@2.9.4)
-
 ## Structure Directory
-All you have to do is to add your dtd & your "sisyphe-xml.json" conf file into your configFolders,
+All you have to do is to add your dtd & your "sisyphe-conf.json" config file into your configFolders,
 configFolders can be any folder on your computer (it's -c argument when you start sisyphe).
 Sisyphe-xml will try to match the best config dir to use .
-If no any configFolder are given sisyphe-xml will try to get config file in worker/sisyphe-xml/conf
+If no any configFolder are given sisyphe-xml will try to get config file in worker/xml/conf
 
 eg: 
 
@@ -23,10 +17,10 @@ eg:
     └── path                   
     │   └── test
             └── DTD
-            └── sisyphe-xml.json
+            └── sisyphe-confg.json
     │   └── some
             └── DTD
-            └── sisyphe-xml.json
+            └── sisyphe-conf.json
     │   └── any
     │   └── others
 ```
@@ -42,15 +36,15 @@ This module use XmlStarlet NodeJs wrapper to check xmldata, it add in data :
 
 
 ## Welformed
-Sisyphe xml will firstly check if XML is wellformed or not.
+Sisyphe xml will firstly check if XML is wellformed or not. A property " isWellFormed" will be set
 
 
-## DTD Validation
+## DTD & XSD schema Validation
 
-If XML is wellformed, Sisyphe-xml is able to check XML against DTD, you just have to create a directory in `sisyphe-xml/conf/folderName`
+If XML is wellformed, Sisyphe-xml is able to check XML against DTD, you just have to create a directory in `xml/conf/folderName`
 where "folderNamme" is the folderName you entered in sisyphe command.
 
-In the nearly created folder you have to create a "sisyphe-xml.json" config file & put your dtd files ina dtd folder.
+In the nearly created folder you have to create a "sisyphe-conf.json" config file & put your dtd files ina dtd folder.
 
 In the config file you just have to put your relative mains entries dtd's path:
 
@@ -58,7 +52,11 @@ eg
 
 ```javascript
 {
-  dtd: ['folder/file1.dtd', 'folder/file2.dtd']
+  xml: {
+    dtd: ['folder/file1.dtd', 'folder/file2.dtd'],
+    schema: ['folder/file1.xsd', 'folder/file2.xsd']
+
+  }
 }
 ```
 
@@ -66,8 +64,8 @@ Sisyphe will check dtd against file1 then file2 ...
 
 
 #### Info
-If the .XML is VALID against its own listed a "validateAgainstDTD" field will be set to true
-If the .XML is not valid against its own listed .DTD then 
+If the .XML is VALID against its own listed a "validateAgainstDTD" & "validateAgainstSchemas" field will be set to true
+If .XML is not valid properties "validationSchemaErrors" & "validationDTDErrors" will be set
 
 
 ## XML Extraction
@@ -88,8 +86,10 @@ You will have to create your own sisyphe-xml.json config files, you will have to
 eg
 
 ```javascript
-{
-  medatada: [{name, type xpath},{name, type xpath, regex},{...}]
+xml: {
+  {
+    medatada: [{name, type xpath},{name, type xpath, regex},{...}]
+  }
 }
 ```
 
@@ -103,13 +103,19 @@ In the end you should have something like:
 eg
 
 ```javascript
-{
-  medatada: [{"name": "publicationYear", "type": "Number", "xpath": "///article-meta/pub-date/year", "regex": "^([0-9]{4})$" },{...}]
+xml: {
+  {
+    medatada: [
+    {
+      "name": "publicationYear", 
+      "type": "Number", 
+      "xpath": "///article-meta/pub-date/year", 
+      "regex": "^([0-9]{4})$" 
+      },
+      {...}]
+
+  }
 }
 ```
 
 You can find a complete exemple [here](/worker/sisyphe-xml/conf/exemple)
-
-
-
-
