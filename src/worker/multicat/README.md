@@ -7,7 +7,7 @@ multicat
 
 ## Configuration ##
 
-An exemple of this module configuration (ISTEX conf here)
+An exemple of this module configuration (JUPITEX conf here)
 
 ```json
 {
@@ -15,8 +15,8 @@ An exemple of this module configuration (ISTEX conf here)
     "module": {
       "label": "rd-multicat",
       "resp": {
-        "id": "istex-rd",
-        "label": "ISTEX-RD"
+        "id": "JUPITEX-rd",
+        "label": "JUPITEX-RD"
       },
       "resources": "sm-wos-scopus"
     },
@@ -80,8 +80,8 @@ Detailled view of data :
   "module": {
     "label": "rd-multicat",
     "resp": {
-      "id": "istex-rd",
-      "label": "ISTEX-RD"
+      "id": "JUPITEX-rd",
+      "label": "JUPITEX-RD"
     },
     "resources": "test"
   },
@@ -122,7 +122,7 @@ More infos about how to use tpl syntax at [documentation](https://github.com/ray
 
 ### Tables ###
 
-All infos about `tables` are in a configuration file (`/conf/sisyphe-conf.json`). ISTEX configuration looks like :
+All infos about `tables` are in a configuration file (`/conf/sisyphe-conf.json`). JUPITEX configuration looks like :
 
 ```json
 {
@@ -130,8 +130,8 @@ All infos about `tables` are in a configuration file (`/conf/sisyphe-conf.json`)
   "multicat": {
     "label": "rd-multicat",
     "resp": {
-      "id": "istex-rd",
-      "label": "ISTEX-RD"
+      "id": "JUPITEX-rd",
+      "label": "JUPITEX-RD"
     },
     "resources": "sm-wos-scopus",
     "categorizations": [{

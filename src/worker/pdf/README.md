@@ -1,9 +1,6 @@
-[![Build Status](https://travis-ci.org/istex/sisyphe-pdf.svg?branch=master)](https://travis-ci.org/istex/sisyphe-pdf)
-[![bitHound Overall Score](https://www.bithound.io/github/istex/sisyphe-pdf/badges/score.svg)](https://www.bithound.io/github/istex/sisyphe-pdf)
-
 sisyphe-pdf
 =======
-[Sisyphe](https://github.com/istex/sisyphe) module of generating PDF's informations
+Sisyphe module of generating PDF's informations
 
 ### What does it do ?
 Sisyphe PDF will add some kind of informations about PDF files  (Pdf verison, author, Software used to build it & date ...)
@@ -13,11 +10,8 @@ If a file is not a PDF it will just "next" it.
 
 
 ### How it works ?
-Sisyphe PDF use Mozilla "PDFJS" to obtains PDF informations.
+Sisyphe PDF use a c++ binding Poppler on Linux & OSX 
+It use Mozilla "PDFJS" on windows to obtains PDF informations.
 
 ### Test
 Just exec `npm test`
-
-
-### Dev
-Don't forget to add env SISYPHEDEBUG (to any value) in your bashrc (or whatever ..) or you won't see error logs.

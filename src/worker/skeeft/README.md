@@ -7,7 +7,7 @@ skeeft
 
 ## Configuration ##
 
-An exemple of this module configuration (ISTEX conf here)
+An exemple of this module configuration (JUPITEX conf here)
 
 ```json
 {
@@ -67,8 +67,8 @@ An exemple of this module configuration (ISTEX conf here)
     "module": {
       "label": "rd-skeeft",
       "resp": {
-        "id": "istex-rd",
-        "label": "ISTEX-RD"
+        "id": "JUPITEX-rd",
+        "label": "JUPITEX-RD"
       },
       "resource": "teeft"
     },
@@ -113,8 +113,8 @@ Detailled view of data :
   "module": {
     "label": "rd-skeeft",
     "resp": {
-      "id": "istex-rd",
-      "label": "ISTEX-RD"
+      "id": "JUPITEX-rd",
+      "label": "JUPITEX-RD"
     },
     "resource": "teeft"
   },

@@ -5,7 +5,9 @@
 
 ## Sisyphe
 
-Sisyphe is a generic NodeJS recursive folder analyser terminal application & a ([lerna](https://github.com/lerna/lerna)) git [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md).
+Sisyphe is a simple NodeJS (recursive) folders analyser application & a ([lerna](https://github.com/lerna/lerna)) git [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md).
+
+Basically it can provided somes informations, [check here for informations](#modules)
 
 ![Sisyphe-pic](./sisyphe.gif)
 
@@ -35,8 +37,8 @@ docker run --name sisyphe-redis -p 6379:6379 redis:3.2.6
 
 ### Options
     -V, --version               output the version number
-    -n, --corpusname <name>     Corpus name
-    -s, --select <name>         Select all module to deal with
+    -n, --corpusname <name>     Corpus name (session name)
+    -s, --select <name>         Choose modules for the analyse
     -c, --config-dir <path>     Configuration folder path
     -t, --thread <number>       The number of process which sisyphe will take
     -b, --bundle <number>       Regroup jobs in bundle of jobs
@@ -49,37 +51,41 @@ docker run --name sisyphe-redis -p 6379:6379 redis:3.2.6
 
 Just start Sisyphe on a folder with any files in it.
 
-`node app -n corpusname ~/Documents/customfolder/corpus`
+`node app -n sessionName ~/Documents/customfolder/corpus`
 
 
-`node app -n corpusname -c ~/Documents/customfolder/corpusResources ~/Documents/customfolder/corpus`
+`node app -n sessionName -c ~/Documents/customfolder/folderResources ~/Documents/customfolder/session`
 
 
-Sisyphe is now working in background with all your computer thread.
+Sisyphe is now working in background using all your computer threads.
 Just take a coffee and wait , it will prevent you when it's done :)
 
-The results of sisyphe are present @ `sisyphe/out/{timestamp}-corpusname/` (errors,info,duration..)
+The result of sisyphe is present @ `sisyphe/out/{timestamp}-corpusname/` (errors,info,duration..)
 
+
+
+### Interface
 For a control panel & full binded app, go to [Sisyphe-monitor](https://github.com/jupitex/sisyphe-monitor)
 sisyphe has a server that allows to control it and to obtain more information on its execution.
 Simply run the server with `npm run server` to access these features
 
 
+
 ![Sisyphe-dashboard](./sisyphe-monitor.gif)
 
 ### Modules
-There is a list of default modules (focused on xml & pdf).
+These are the default modules (focused on xml & pdf).
 
-Those URL NEED to be updated when merge branch will be ok.
-- [FILETYPE](https://github.com/jupitex/sisyphe/tree/master/src/worker/filetype) Will detect mimetype,extension, corrupted files..
-- [PDF](https://github.com/jupitex/sisyphe/tree/master/src/worker/pdf) Will get info from PDF (version, author, meta...)
-- [XML](https://github.com/jupitex/sisyphe/tree/master/src/worker/xml) Will check if it's wellformed, valid-dtd's, get elements from balises ...
-- [XPATH](https://github.com/jupitex/sisyphe/tree/master/src/worker/xpath)  Will generate a complete list of xpaths from submitted folder
-- [OUT](https://github.com/jupitex/sisyphe/tree/master/src/worker/out) Will export data to json file & ElasticSearch database
-- [NB](https://github.com/jupitex/sisyphe/tree/master/src/worker/nb) Try to assing some categories to an XML document by using its abstract
-- [MULTICAT](https://github.com/jupitex/sisyphe/tree/master/src/worker/multicat) Try to assing some categories to an XML document by using its identifiers
-- [TEEFT](https://github.com/jupitex/sisyphe/tree/master/src/worker/teeft) Try to extract keywords of a fulltext
-- [SKEEFT](https://github.com/jupitex/sisyphe/tree/master/src/worker/skeeft) Try to extract keywords of a structured fulltext by using teeft algorithm and text structuration
+- [FILETYPE](src/worker/filetype) Will detect mimetype,extension, corrupted files..
+- [PDF](src/worker/pdf) Will get info from PDF (version, author, meta...)
+- [XML](src/worker/xml) Will check if it's wellformed, valid-dtd's, get elements from balises ...
+- [LANG](src/worker/lang) Will  detect lang of files (xml/text files ...)
+- [XPATH](src/worker/xpath)  Will generate a complete list of xpaths from submitted folder
+- [OUT](src/worker/out) Will export data to json file & ElasticSearch database
+- [NB](src/worker/nb) Try to assing some categories to an XML document by using its abstract
+- [MULTICAT](src/worker/multicat) Try to assing some categories to an XML document by using its identifiers
+- [TEEFT](src/worker/teeft) Try to extract keywords of a fulltext
+- [SKEEFT](src/worker/skeeft) Try to extract keywords of a structured fulltext by using teeft algorithm and text structuration
 
 
 ### Developpement on worker
