@@ -1,0 +1,19 @@
+{
+  "name": "ocr",
+  "version": "1.0.0",
+  "description": "OCR modules for sisyphe",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "OCr",
+    "Tesseract",
+    "sisyphe"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "tesseract.js": "^1.0.10"
+  }
+}
