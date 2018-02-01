@@ -52,10 +52,13 @@ const worker = {
       errors: [],
       logs: []
     };
+    console.log('teeft',data.path)
     // Get the filename (without extension)
     const documentId = path.basename(data.name, data.extension || self.resources.parameters.input.extension);
     // Read TXT file
     fs.readFile(data.path, "utf-8", function(err, txt) {
+      console.log("teeft", data);
+      
       // I/O Errors
       if (err) {
         data[pkg.name].errors.push(err.toString());

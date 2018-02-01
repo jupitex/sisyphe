@@ -26,7 +26,6 @@ sisypheFileType.doTheJob = function (data, next) {
   mime.define({
     'application/xml': ["nxml", "meta", "xlink_v03", "prime_v03", "plusxml_v02", "plusprime_v02", "info_V03", "citation_v03", "aux_v03"]
   });
-
   const datapath = data.path;
   let mimetype = mime.lookup(data.path);
 

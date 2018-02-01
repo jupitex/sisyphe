@@ -1,44 +1,34 @@
 {
-  "name": "sisyphe",
-  "version": "5.1.0",
+  "name": "tasks",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "postinstall": "lerna bootstrap",
-    "server": "node server.js",
-    "test": "mocha && lerna run --ignore *-worker test",
-    "coverage": "nyc --reporter=text --reporter=html mocha",
-    "updated": "lerna updated",
-    "publish": "lerna publish --skip-npm && git push --follow-tags"
-  },
-  "author": "",
-  "license": "MIT",
   "dependencies": {
-    "ansicolors": "^0.3.2",
-    "blessed": "^0.1.81",
-    "blessed-contrib": "^4.8.5",
+    "blubird": "0.0.1-security",
     "bluebird": "^3.5.1",
-    "bull": "^3.3.6",
-    "colors": "^1.1.2",
-    "commander": "^2.11.0",
-    "express": "^4.16.2",
-    "gitmanager": "git+https://github.com/istex/GitManager.git",
-    "ink-docstrap": "^1.3.2",
-    "jsdoc": "^3.5.5",
-    "klaw": "^2.1.1",
-    "lodash": "^4.17.4",
-    "readline": "^1.3.0",
-    "redis": "^2.8.0",
-    "serve-static": "^1.13.1"
-  },
-  "devDependencies": {
     "chai": "^4.1.2",
-    "chai-events": "0.0.1",
-    "lerna": "^2.5.1",
-    "mocha": "^3.5.3",
-    "nyc": "^11.3.0"
+    "commander": "^2.12.2",
+    "express": "^4.16.2",
+    "fs-extra": "^5.0.0",
+    "gitmanagerjs": "^1.2.1",
+    "gpu.js": "^1.0.0-rc.10",
+    "lodash": "^4.17.4",
+    "mocha": "^5.0.0",
+    "nooocl": "^0.12.5",
+    "redis": "^2.8.0",
+    "request-promise": "^4.2.2",
+    "turbojs": "^1.0.2",
+    "virtual-dom": "^2.1.1",
+    "webmonkeys": "^1.6.1"
   },
+  "devDependencies": {},
   "optionalDependencies": {
     "popplonode": "^1.8.1"
-  }
+  },
+  "scripts": {
+    "test": "mocha",
+    "server": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
 }

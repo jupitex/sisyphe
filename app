@@ -7,7 +7,7 @@ const program = require("commander");
 const pkg = require("./package.json");
 const path = require("path");
 const numCPUs = require("os").cpus().length;
-const sisyphe = require("./sisyphe");
+const Sisyphe = require("./sisyphe");
 
 /********************************************/
 /* Receive and format command line argument */
@@ -94,10 +94,12 @@ const session = {
 /*****************/
 /* Launch Sisyphe*/
 /*****************/
-sisyphe
-  .init(session)
-  .then(() => sisyphe.launch())
-  .catch(err => console.log(err));
+(async _ => {
+  console.time("Execution");
+  const sisyphe = await new Sisyphe(session);
+  await sisyphe.launch();
+  console.timeEnd("Execution");
+})().catch(err => console.log(err));
 
 // Uses to filter workers
 function appender(xs) {

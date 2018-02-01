@@ -1,75 +1,98 @@
-const Queue = require('bull');
-/**
- * Interface between Sisyphe and Redis server
- * @constructor
- */
-const Task = {};
+const Promise = require("bluebird");
+const redis = require("redis");
+Promise.promisifyAll(redis.RedisClient.prototype);
+Promise.promisifyAll(redis.Multi.prototype);
+const EventEmitter = require("events").EventEmitter;
+const _ = require("lodash");
 
-/**
- * @param {any} options
- * @returns Task
- */
-Task.init = function (options) {
-  this.name = options.name;
-  if (options.hasOwnProperty('stringRedisConnection')) {
-    this.queue = new Queue(options.name, options.stringRedisConnection);
-  } else {
-    this.queue = new Queue(options.name);
+function Task(option) {
+  EventEmitter.call(this);
+  if (option.hasOwnProperty("port") && option.hasOwnProperty("host"))
+    this.client = redis.createClient({ host: "127.0.0.1", port: 6379 });
+  else this.client = redis.createClient();
+  this.name = option.name;
+  this.processResolve = []
+  this.blProcess = 0
+  this.nbProcess = 0
+  this.nbProcessStop = 0
+  this.active = 0
+}
+Task.prototype = Object.create(EventEmitter.prototype);
+
+Task.prototype.flushall = function() {
+  return this.client.flushallAsync();
+};
+
+Task.prototype.add = function(obj) {
+  return this.client.lpushAsync(this.name, JSON.stringify(obj));
+};
+
+Task.prototype.get = function() {
+  return this.client.blpopAsync(this.name, 0);
+};
+
+Task.prototype.quit = async function() {
+  return new Promise(async (resolve, reject) => {
+    await this.stopProcess();
+    setTimeout(async () => {
+      await this.client.end(false);
+      resolve()
+    }, 10);
+  });
+};
+
+Task.prototype.stopProcess = async function() {
+  for (var i = 0; i < this.blProcess; i++) {
+    await this.add({endProcess:true})
   }
-
-  return this;
+  this.processResolve.map(resolver=>{
+    resolver.resolve()
+    resolver.client.end(false)
+  })
+};
+Task.prototype.getJobCount = async function() {
+  return this.client.llenAsync(this.name).catch(err => console.log(err));
 };
 
-/**
- * @param {any} obj
- * @returns Promise
- */
-Task.add = function (obj) {
-  return this.queue.add(obj, {removeOnComplete: true, attempts: 200000});
-};
+Task.prototype.debounce = function(time=500) {
+  const interval = setInterval(async _=>{
+    if (this.process_is_running && (await this.getJobCount()) === 0 && this.active === 0) {
+      clearInterval(interval)
+      this.emit('processEnd')
+    }
+  },time)
+}
 
-Task.process = async function (fun, queue) {
-  return this.queue.process(fun);
-  // console.log('lkj')
-  // if (!this.queue) {
-  //   this.queue = queue
-  // }
-  // if (true) {
-  //   const job = await this.queue.getNextJob().catch(err =>{});
-  //   console.log(job)
-  //   if (job) await fun(job).catch(err=>{});
-  // }
-  // process.bind(this, fun, this.queue)()
-};
-Task.pause = async function () {
-  return this.queue.pause();
-};
-
-Task.getWaiting = async function () {
-  return this.queue.getWaiting();
-};
-
-Task.resume = async function () {
-  return this.queue.resume();
-};
-
-/**
- * @returns Promise
- */
-Task.getJobCounts = function () {
-  return this.queue.getJobCounts();
-};
-
-/**
- * @returns Promise
- */
-Task.exit = function () {
-  this.queue.removeAllListeners();
-  return this.queue.close();
-};
-
-Task.on = function () {
-  return this.queue.on.call(this.queue, ...arguments);
+Task.prototype.process = function(fun, debounceTime) {
+  // if (this.process_is_running){
+  //   return this.processFunction
+  // } 
+  const self = this;
+  const processClient = redis.createClient();
+  this.process_is_running = true;
+  return new Promise((resolve, reject) => {
+    this.processResolve.push({resolve,client: processClient})
+    const loop = function() {
+      this.blProcess++
+      return processClient.blpopAsync(self.name, 0).then(job => {
+        this.blProcess--;
+        job = JSON.parse(job[1]);
+        if (job.hasOwnProperty("endProcess")) {
+          return processClient.end(false)
+        };
+        self.active+=1;
+        fun(job, done => {
+          self.active-=1
+          if (!self.process_is_running) return;
+          loop();
+        });
+      });
+    };
+    loop();
+    if (debounceTime) {
+      self.debounce(debounceTime);
+    }
+  });
 };
 
 module.exports = Task;

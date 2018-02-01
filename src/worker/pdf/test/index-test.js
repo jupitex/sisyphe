@@ -15,29 +15,57 @@ const dataInput = {
   name: 'test.pdf',
   size: 123456
 };
+const dataCorrupt = {
+  corpusname: "default",
+  debugmod: true,
+  mimetype: "application/pdf",
+  startAt: 1479731952814,
+  extension: ".pdf",
+  path: __dirname + "/data/corrupt.pdf",
+  name: "test.pdf",
+  size: 123456
+};
 
 beforeEach(function() {
   return sisyphePdf.init();
 });
 
 describe('doTheJob', function () {
-  it('should add some info about the PDF', function (done) {
+  it("should add some info about the PDF", function(done) {
     sisyphePdf.doTheJob(dataInput, (error, dataOutput) => {
       if (error) return done(error);
-      expect(dataOutput).to.have.property('pdfPageTotal');
-      expect(dataOutput.pdfPageTotal).to.be.a('number');
-      expect(dataOutput).to.have.property('pdfWordCount');
-      expect(dataOutput.pdfWordCount).to.be.a('number');
-      expect(dataOutput).to.have.property('pdfWordByPage');
-      expect(dataOutput.pdfWordByPage).to.be.a('number');
-      expect(dataOutput).to.have.property('pdfMetadata');
-      expect(dataOutput.pdfMetadata).to.have.property('PDFFormatVersion');
-      expect(dataOutput.pdfMetadata).to.have.property('Title');
-      expect(dataOutput.pdfMetadata).to.have.property('Author');
+      expect(dataOutput).to.have.property("pdfPageTotal");
+      expect(dataOutput.pdfPageTotal).to.be.a("number");
+      expect(dataOutput).to.have.property("pdfWordCount");
+      expect(dataOutput.pdfWordCount).to.be.a("number");
+      expect(dataOutput).to.have.property("pdfWordByPage");
+      expect(dataOutput.pdfWordByPage).to.be.a("number");
+      expect(dataOutput).to.have.property("pdfMetadata");
+      expect(dataOutput.pdfMetadata).to.have.property("PDFFormatVersion");
+      expect(dataOutput.pdfMetadata).to.have.property("Title");
+      expect(dataOutput.pdfMetadata).to.have.property("Author");
       done();
     });
   })
+  it("should add some info about the PDF corrupt", function(done) {
+    sisyphePdf.doTheJob(dataCorrupt, (error, dataOutput) => {
+      if (error) return done(error);
+      expect(dataOutput).to.have.property("pdfPageTotal");
+      expect(dataOutput.pdfPageTotal).to.be.a("number");
+      expect(dataOutput).to.have.property("pdfWordCount");
+      expect(dataOutput.pdfWordCount).to.be.a("number");
+      expect(dataOutput).to.have.property("pdfWordByPage");
+      expect(dataOutput.pdfWordByPage).to.be.a("number");
+      expect(dataOutput).to.have.property("pdfMetadata");
+      expect(dataOutput.pdfMetadata).to.have.property("PDFFormatVersion");
+      expect(dataOutput.pdfMetadata).to.have.property("Title");
+      expect(dataOutput.pdfMetadata).to.have.property("Author");
+      done();
+    });
+  });
 });
+
+
 
 if(os.platform() !== 'darwin' && os.platform() !== 'linux'){
   describe('getPdfMetaData', function () {

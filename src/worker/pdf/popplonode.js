@@ -8,18 +8,26 @@ sisyphePopplonode.init = function (options) {
   this.popplonode = new Popplonode();
 };
 sisyphePopplonode.doTheJob = function (docObject, next) {
-  this.popplonode.load(docObject.path);
-  const metadata = this.popplonode.getMetadata();
-  this.getPdfWordCount(metadata.TotalNbPages).then(nbWords => {
-    docObject.pdfMetadata = metadata;
-    docObject.pdfPageTotal = +metadata.TotalNbPages;
-    docObject.pdfWordCount = +nbWords;
-    docObject.pdfWordByPage = ~~(docObject.pdfWordCount / docObject.pdfPageTotal);
-    next(null, docObject);
-  }).catch(err => {
-    next(err)
-  });
+  (async _ => {
+    this.popplonode.load(docObject.path);
+    const metadata = await this.getMetadata()
+
+    this.getPdfWordCount(metadata.TotalNbPages).then(nbWords => {
+      docObject.pdfMetadata = metadata;
+      docObject.pdfPageTotal = +metadata.TotalNbPages;
+      docObject.pdfWordCount = +nbWords;
+      docObject.pdfWordByPage = ~~(docObject.pdfWordCount / docObject.pdfPageTotal);
+      next(null, docObject);
+    }).catch(err => {
+      next(err)
+    });
+  })()
 };
+sisyphePopplonode.getMetadata = async function () {
+  return new Promise((resolve, reject) => {
+    resolve(this.popplonode.getMetadata())
+  });
+}
 
 sisyphePopplonode.getPdfWordCount = async function (TotalNbPages) {
   const promises = [];

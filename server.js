@@ -5,7 +5,7 @@ const path = require('path');
 const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs'));
 var bodyParser = require('body-parser');
-const GitManager = require('gitmanager');
+const GitManager = require('gitmanagerjs');
 const klaw = require("klaw");
 let gitManager;
 try {
@@ -92,8 +92,12 @@ app.get('/download/latest', async function (req, res) {
       res.status(200).json(items);
     });
 });
-app.get('/ping', function (req, res) {
-  res.send('pong');
+app.get("/ping", function(req, res) {
+  res.send("pong");
+});
+app.get("/alreadyLaunch", function(req, res) {
+  const status = (!sisyphe) ? false : true
+  return res.status(200).json({ err });
 });
 app.post('/stop', function (req, res) {
   if (sisyphe) {
