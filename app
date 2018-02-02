@@ -109,3 +109,13 @@ function appender(xs) {
     return xs;
   };
 }
+
+process.on("unhandledPromiseRejection", (err, p) => {
+  console.log("An unhandledRejection occurred");
+  console.log(`Rejected Promise: ${p}`);
+  console.log(`Rejection: ${err}`);
+});
+process.on("unhandledRejection", (reason, p) => {
+  console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
+  // application specific logging, throwing an error, or other logic here
+});

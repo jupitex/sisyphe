@@ -7,7 +7,7 @@ teeft
 
 ## Configuration ##
 
-An exemple of this module configuration (JUPITEX conf here)
+An exemple of this module configuration (ISTEX conf here)
 
 ```json
 {
@@ -20,8 +20,8 @@ An exemple of this module configuration (JUPITEX conf here)
     "module": {
       "label": "rd-nb",
       "resp": {
-        "id": "JUPITEX-rd",
-        "label": "JUPITEX-RD"
+        "id": "istex-rd",
+        "label": "ISTEX-RD"
       },
       "resources": "brown"
     },
@@ -73,8 +73,8 @@ Detailled view of data :
     "label": "rd-teeft",
     "resources": "test",
     "resp": {
-      "id": "JUPITEX-rd",
-      "label": "JUPITEX-RD"
+      "id": "istex-rd",
+      "label": "ISTEX-RD"
     }
   },
   "parameters": {

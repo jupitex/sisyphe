@@ -2,13 +2,12 @@
 
 const sisypheOut = {};
 const Winston = require('winston');
-const mkdirp = require('mkdirp');
+const mkdirp = require("mkdirp");
+const path = require('path');
 sisypheOut.init = function (options) {
   this.outputPath = options.outputPath || 'out/no-output-specified';
   mkdirp.sync(this.outputPath);
-  this.now = options.hasOwnProperty('now') ? new Date(options.now) : new Date();
-  this.corpusname = options.hasOwnProperty('corpusname') ? options.corpusname : 'default';
-  this.fileLog = this.outputPath + `/analyse-${options.corpusname}.json`
+  this.fileLog = this.outputPath + `/analyse.json`
   this.logger = new Winston.Logger();
   this.logger.configure({
     exitOnError: false,

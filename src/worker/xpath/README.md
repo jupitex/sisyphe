@@ -1,6 +1,12 @@
+[![Build Status](https://travis-ci.org/istex/sisyphe-xpath.svg?branch=master)](https://travis-ci.org/istex/sisyphe-xpath)
+[![bitHound Overall Score](https://www.bithound.io/github/istex/sisyphe-xpath/badges/score.svg)](https://www.bithound.io/github/istex/sisyphe-xpath)
+
 Sisyphe-xpath
 ============
 Module of generating of xpaths (with their attributes) for XML files.
+
+## Requirements:
+Tested with Redis@3.2.6 & Node 6.9
 
 ## How it works ?
 This module use [xpath-generator](https://github.com/Inist-CNRS/xpath-generator) on each data transfered store & count them in redis.

@@ -62,12 +62,12 @@ function Sisyphe(session = {}) {
     if (!this.session.hasOwnProperty('now')) this.session.now = Date.now();
     if (!this.session.hasOwnProperty('silent')) this.session.silent = false;
     await this.client.flushallAsync();
-    // await client.hmsetAsync(
-    //   // 'monitoring',
-    //   'start', this.session.now,
-    //   'workers', this.session.workers.toString(),
-    //   'corpusname', this.session.corpusname
-    // );
+    await this.client.hmsetAsync(
+      'monitoring',
+      'start', this.session.now,
+      'workers', this.session.workers.toString(),
+      'corpusname', this.session.corpusname
+    );
     this.enterprise = await new Manufactory(this.session);
     await this.monitoring.updateLog('info', 'Initialisation OK');
     this.updateConsole('info', '┌ All workers have been initialized')
@@ -80,7 +80,15 @@ function Sisyphe(session = {}) {
  */
 Sisyphe.prototype.launch = async function() {
   this.enterprise.nbFiles = 0
+  this.enterprise.dispatchers[0].on('completed',data=>{
+    setTimeout(()=> {
+      this.client.hset('monitoring', 'maxFiles', this.getNbFiles())
+    }, 10);
+  })
   this.enterprise.on("dispatcherEnd", async dispatcher => {
+    setTimeout(()=> {
+      this.client.hset('monitoring', 'currentModule', this.getCurrentModule())
+    }, 10);
     this.updateConsole("info", "├─ " + dispatcher.name + " has finished");
     await this.monitoring.updateLog("info", dispatcher.name + " has finished");
   });
@@ -136,3 +144,21 @@ Sisyphe.prototype.updateConsole = function(type,msg) {
 }
 
 module.exports = Sisyphe;
+
+
+process.on("SIGTERM", async _=>{
+  const client = redis.createClient()
+  await client.hmsetAsync('monitoring', 'end', Date.now());
+  await client.quit()
+  process.exit(0)
+});
+
+process.on("unhandledPromiseRejection", (err, p) => {
+  console.log("An unhandledRejection occurred");
+  console.log(`Rejected Promise: ${p}`);
+  console.log(`Rejection: ${err}`);
+});
+process.on("unhandledRejection", (reason, p) => {
+  console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
+  // application specific logging, throwing an error, or other logic here
+});
