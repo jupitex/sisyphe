@@ -26,7 +26,7 @@ const goodConf = {
 };
 
 describe(`${pkg.name}/sisyphe.js`, function() {
-  this.timeout(10000);
+  this.timeout(30000);
   describe("#init", function() {
     it("should initialize", async function() {
       const sisyphe = await new Sisyphe(goodConf);

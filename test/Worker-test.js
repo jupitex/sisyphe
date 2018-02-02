@@ -14,6 +14,7 @@ const Config = {
 };
 
 describe(`${pkg.name}/src/Worker.js`, function () {
+  this.timeout(30000)
   let config
   let fork
   beforeEach(function() {
