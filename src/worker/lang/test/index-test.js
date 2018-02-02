@@ -5,9 +5,10 @@ const fs = require('fs'),
   sisypheLangDetect = require('../index.js'),
   expect = require('chai').expect;
 
-describe(pkg.name + '/index.js', () => {
-  describe('#doTheJob', () => {
-    it('Should detect a lang in a plain text file', (done) => {
+describe(pkg.name + '/index.js', function() {
+  this.timeout(10000)
+  describe('#doTheJob', function() {
+    it('Should detect a lang in a plain text file', function(done) {
       let testTxt = {
         "path": "test/data/test.txt",
         "mimetype": "text/plain"
@@ -22,7 +23,7 @@ describe(pkg.name + '/index.js', () => {
         }
       })
     });
-    it('Should detect a lang in a german text file', (done) => {
+    it('Should detect a lang in a german text file', function(done) {
       let testGerman = {
         "path": "test/data/test2.txt",
         "mimetype": "text/plain"
@@ -40,7 +41,7 @@ describe(pkg.name + '/index.js', () => {
         }
       });
     });
-    it('Should not crash on an empty file & return reliable false', (done) => {
+    it('Should not crash on an empty file & return reliable false', function(done) {
       let testGerman = {
         "path": "test/data/test-empty.txt",
         "mimetype": "text/plain"
@@ -55,7 +56,7 @@ describe(pkg.name + '/index.js', () => {
         }
       });
     });
-    it('Should not crash on an empty file', (done) => {
+    it('Should not crash on an empty file', function(done) {
       let testGerman = {
         "path": "test/data/test-of-doom.txt",
         "mimetype": "text/plain"
@@ -73,7 +74,7 @@ describe(pkg.name + '/index.js', () => {
         }
       });
     });
-    it('Should detect russian lang in xml file', (done) => {
+    it('Should detect russian lang in xml file', function(done) {
       let testGerman = {
         "path": "test/data/test.xml",
         "mimetype": "application/xml"

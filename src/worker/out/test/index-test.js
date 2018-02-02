@@ -14,11 +14,8 @@ describe('init', () => {
     expect(sisypheOutTest.init).to.be.a('function');
     expect(sisypheOutTest.doTheJob).to.be.a('function');
     expect(sisypheOutTest.logger).to.be.an.instanceOf(Winston.Logger);
-    expect(sisypheOutTest.now).to.be.an.instanceOf(Date);
-    expect(sisypheOutTest.corpusname).to.be.a('string');
-    expect(sisypheOutTest.corpusname).to.be.equal('test');
     expect(sisypheOutTest.fileLog).to.be.a('string');
-    expect(sisypheOutTest.fileLog).to.be.equal('out/no-output-specified/analyse-test.json');
+    expect(sisypheOutTest.fileLog).to.be.equal('out/no-output-specified/analyse.json');
   });
 });
 

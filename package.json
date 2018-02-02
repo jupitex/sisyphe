@@ -28,7 +28,7 @@
     "popplonode": "^1.8.1"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "mocha && lerna run --ignore *-worker test",
     "server": "node server.js",
     "postinstall": "lerna bootstrap"
   },
