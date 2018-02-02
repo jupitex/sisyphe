@@ -11,6 +11,7 @@ const Task = require('../src/task');
 
 
 beforeEach(async function() {
+  this.timeout(30000)
   const flushClient = redis.createClient();
   await flushClient.flushallAsync()
   flushClient.quit()
