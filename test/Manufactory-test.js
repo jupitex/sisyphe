@@ -13,6 +13,7 @@ const path = require("path");
 const Task = require("../src/task");
 
 describe(`${pkg.name}/src/Manufactory.js`, function() {
+  this.timeout(10000);
   describe("#init", function() {
     it("should initialize", async function() {
       const manufactory = await new Manufactory({ workers: ["dumbWorker"] });
@@ -23,7 +24,6 @@ describe(`${pkg.name}/src/Manufactory.js`, function() {
     });
   });
   describe("#launch", function() {
-    this.timeout(10000000);
     it("should launch", async function() {
       const manufactory = await new Manufactory({
         workers: ["walker-fs", "filetype", "out"],
@@ -34,7 +34,6 @@ describe(`${pkg.name}/src/Manufactory.js`, function() {
     })
   });
   describe("#corruption", function() {
-    this.timeout(10000000);
     it("should process all task", async function() {
       const manufactory = await new Manufactory({
         workers: ["walker-fs", "filetype", "pdf","xml", "out"],
