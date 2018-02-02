@@ -13,7 +13,7 @@ const path = require("path");
 const Task = require("../src/task");
 
 describe(`${pkg.name}/src/Manufactory.js`, function() {
-  this.timeout(20000);
+  this.timeout(40000);
   describe("#init", function() {
     it("should initialize", async function() {
       const manufactory = await new Manufactory({ workers: ["dumbWorker"] });
