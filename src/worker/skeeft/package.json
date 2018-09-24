@@ -11,9 +11,9 @@
   "license": "GNU",
   "dependencies": {
     "async": "^2.5.0",
-    "auto-tu": "^1.0.0",
+    "auto-tu": "^1.1.1",
     "mathjs": "^3.16.5",
     "mocha": "^3.5.3",
-    "worker-utils": "^1.0.0"
+    "worker-utils": "^1.1.0"
   }
 }
