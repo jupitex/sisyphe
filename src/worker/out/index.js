@@ -27,7 +27,7 @@ sisypheOut.init = function (options) {
 sisypheOut.doTheJob = function (data, next) {
   this.logger.info(data, function (error, level, msg, meta) {
     if (error) return next(error);
-    next(null, msg);
+    next(null, meta);
   });
 };
 
