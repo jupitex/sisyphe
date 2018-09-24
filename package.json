@@ -15,8 +15,6 @@
   "license": "MIT",
   "dependencies": {
     "ansicolors": "^0.3.2",
-    "blessed": "^0.1.81",
-    "blessed-contrib": "^4.8.6",
     "bluebird": "^3.5.1",
     "bull": "^3.4.8",
     "colors": "^1.1.2",
