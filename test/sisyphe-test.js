@@ -19,10 +19,10 @@ const goodSession = {
   workers: ["walker-fs", "filetype"],
   silent: true
 };
-beforeEach(function() {
-  Sisyphe = require("../sisyphe");
-});
 describe(`${pkg.name}/Sisyphe.js`, function() {
+  beforeEach(function() {
+    Sisyphe = require("../sisyphe");
+  });
   describe("#init", function() {
     it("init should success", function(done) {
       Sisyphe.init(goodSession)
@@ -66,4 +66,3 @@ describe(`${pkg.name}/Sisyphe.js`, function() {
     });
   });
 });
-
