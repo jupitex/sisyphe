@@ -83,6 +83,7 @@ sisyphe.init = function (session) {
     return this;
   })().catch(err => {
     this.exit(err);
+    return Promise.reject(err);
   });
 };
 
@@ -128,6 +129,7 @@ sisyphe.launch = function () {
     });
   })().catch(err => {
     this.exit(err);
+    return Promise.reject(err);
   });
 };
 
@@ -139,7 +141,6 @@ sisyphe.exit = async function (err) {
     monitoring.updateError(err);
   }
   await client.hmsetAsync('monitoring', 'end', Date.now());
-  process.exit(0);
 };
 
 // do something when app is closing
